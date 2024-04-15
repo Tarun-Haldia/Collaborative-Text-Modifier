@@ -3,12 +3,26 @@ const express = require('express')
 const { createServer } = require("http");
 const cors = require('cors');
 const mongoose = require('mongoose');
+const env = require('dotenv');
 
+env.config();
+
+console.log(process.env.MONGODB_CONNECT_URL);
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/text-editor', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
+async function connectToDatabase() {
+    try {
+        await mongoose.connect(process.env.MONGODB_CONNECT_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+        console.log('Connected to MongoDB');
+    } catch (error) {
+        console.error('Error connecting to MongoDB:', error);
+    }
+}
+
+// Call the function to establish the connection
+connectToDatabase();
 
 const schema = mongoose.Schema;
 
@@ -27,7 +41,7 @@ const io = new Server(httpServer, {
         origin: "http://127.0.0.1:5173"
     }
 });
-const port = 3001
+const port = process.env.PORT;
 
 io.on("connection", (socket) => {
     console.log("socket id", socket.id)
