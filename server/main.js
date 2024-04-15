@@ -47,10 +47,10 @@ app.use((req, res, next) => {
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
     cors: {
-        origin: "http://127.0.0.1:5173"
+        origin: "*"
     }
 });
-const port = process.env.PORT;
+const port = process.env.PORT || 8080;
 
 io.on("connection", (socket) => {
     socket.on("get-document", async (documentId) => {

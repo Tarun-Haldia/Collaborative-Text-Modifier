@@ -33,10 +33,12 @@ function TextEditor() {
     const { id: documentId } = useParams();
     const [socket, setSocket] = useState(null);
     const quillRef = useRef(null);
+    
+    const base_url = location.href.split('/')[2]
 
     // connecting the socket.io
     useEffect(() => {
-        const s = io("http://localhost:3001");
+        const s = io("https://collaborative-text-editor-5k3t.onrender.com/");
         setSocket(s);
 
         return () => {
@@ -111,7 +113,7 @@ function TextEditor() {
 
             const ydoc = new Y.Doc();
             const provider = new WebsocketProvider(
-                `ws://127.0.0.1:5173/documents/${documentId}`,
+                `ws://${base_url}/documents/${documentId}`,
                 "",
                 ydoc
             );
@@ -130,6 +132,8 @@ function TextEditor() {
         },
         [documentId]
     );
+
+
 
     function handleClick() {
         navigator.clipboard.writeText(location.href);
