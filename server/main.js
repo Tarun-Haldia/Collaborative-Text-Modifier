@@ -3,8 +3,9 @@ const express = require('express')
 const { createServer } = require("http");
 const cors = require('cors');
 const mongoose = require('mongoose');
-const env = require('dotenv');
-env.config();
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 // Connect to MongoDB
 async function connectToDatabase() {
@@ -40,7 +41,7 @@ app.use((req, res, next) => {
       res.setHeader('Content-Type', 'application/javascript');
     }
     next();
-  });
+});
   
 
 const httpServer = createServer(app);
