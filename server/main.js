@@ -4,14 +4,12 @@ const { createServer } = require("http");
 const cors = require('cors');
 const mongoose = require('mongoose');
 const env = require('dotenv');
-
 env.config();
 
-console.log(process.env.MONGODB_CONNECT_URL);
 // Connect to MongoDB
 async function connectToDatabase() {
     try {
-        await mongoose.connect(process.env.MONGODB_CONNECT_URL, {
+        await mongoose.connect(process.env.MONGODB_CONNECT_URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
@@ -35,8 +33,6 @@ const Document = mongoose.model('Document', documentSchema);
 
 const app = express();
 app.use(cors())
-// Serve static files from the 'public' directory
-app.use(express.static('public'));
 
 // Set the MIME type for JavaScript files explicitly
 app.use((req, res, next) => {
@@ -56,14 +52,12 @@ const io = new Server(httpServer, {
 const port = process.env.PORT;
 
 io.on("connection", (socket) => {
-    console.log("socket id", socket.id)
     socket.on("get-document", async (documentId) => {
         const document = await findOrCreate(documentId)
         socket.join(documentId);
         socket.emit("load-document", document.data )
         socket.on("send-changes", (delta) => {
             socket.broadcast.to(documentId).emit("receive-changes", delta);
-            console.log(delta);
         })
         socket.on("save-data", async (data) => {
             await Document.findByIdAndUpdate(documentId, {data})
