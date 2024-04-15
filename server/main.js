@@ -35,6 +35,18 @@ const Document = mongoose.model('Document', documentSchema);
 
 const app = express();
 app.use(cors())
+// Serve static files from the 'public' directory
+app.use(express.static('public'));
+
+// Set the MIME type for JavaScript files explicitly
+app.use((req, res, next) => {
+    if (req.url.endsWith('.js')) {
+      res.setHeader('Content-Type', 'application/javascript');
+    }
+    next();
+  });
+  
+
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
     cors: {
