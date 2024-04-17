@@ -23,7 +23,6 @@ function RedirectToNewDocument() {
 
 
 function App() {
-
     return (
         <Router>
             <Routes>
