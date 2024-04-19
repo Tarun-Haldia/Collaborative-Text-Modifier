@@ -8,20 +8,27 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 // Connect to MongoDB
-async function connectToDatabase() {
-    try {
-        await mongoose.connect(process.env.MONGODB_CONNECT_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
-        console.log('Connected to MongoDB');
-    } catch (error) {
-        console.error('Error connecting to MongoDB:', error);
-    }
-}
+// async function connectToDatabase() {
+//     try {
+//         await mongoose.connect(process.env.MONGODB_CONNECT_URI);
+//         console.log('Connected to MongoDB');
+//     } catch (error) {
+//         console.error('Error connecting to MongoDB:', error);
+//     }
+// }
+const db = process.env.MONGODB_CONNECT_URI
+mongoose
+  .connect(db)
+  .then((con) => {
+    console.log("Connected Successfully");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
 
 // Call the function to establish the connection
-connectToDatabase();
+// connectToDatabase();
 
 const schema = mongoose.Schema;
 
@@ -42,6 +49,8 @@ app.use((req, res, next) => {
     }
     next();
 });
+
+
   
 
 const httpServer = createServer(app);

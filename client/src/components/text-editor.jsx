@@ -39,6 +39,8 @@ function TextEditor() {
     // connecting the socket.io
     useEffect(() => {
         const s = io("https://collaborative-text-editor-5k3t.onrender.com/");
+        // const s = io("http://127.0.0.1:3001");
+
         setSocket(s);
 
         return () => {
@@ -132,7 +134,6 @@ function TextEditor() {
         },
         [documentId]
     );
-
 
 
     function handleClick() {
