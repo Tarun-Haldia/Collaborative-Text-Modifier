@@ -1,6 +1,6 @@
-<h1 align="center" id="title">Collaborative Text Editor</h1>
+<h1 align="center" id="title">Collaborative-Text-Modifier</h1>
 
-<p align="center"><img src="https://socialify.git.ci/AdityaKumar-2501/collaborative-text-editor/image?description=1&amp;font=Source%20Code%20Pro&amp;language=1&amp;name=1&amp;owner=1&amp;pattern=Signal&amp;theme=Dark" alt="project-image"></p>
+
 
 <p id="description">This is a collaborative text editor which means multiple users can edit the same file at the same time and the changes are reflected in real time. You can also create a new file share links with each other and work together. It also highlights the cursor of multiple users which helps identify which part of the document another person is working on.</p>
 
@@ -22,7 +22,7 @@ Here're some of the project's best features:
 <p>1. Clone Repo</p>
 
 ```
-git clone https://github.com/AdityaKumar-2501/collaborative-text-editor.git 
+https://github.com/Tarun-Haldia/Collaborative-Text-Modifier.git
 ```
 
 <p>2. Move to Client Folder</p>
@@ -74,3 +74,5 @@ Technologies used in the project:
 *   Quill.js
 *   Yjs
 *   Socket-io
+
+<h3>made by Tarun Haldia</h3>
